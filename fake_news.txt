@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fake News Tracker</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        textarea {
+            width: 70%;
+            height: 160px;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin-top: 10px;
+            background: #22c55e;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .box {
+            margin-top: 20px;
+            padding: 20px;
+            background: #1e293b;
+            border-radius: 10px;
+            width: 70%;
+            margin-left: auto;
+            margin-right: auto;
+            min-height: 100px;
+        }
+
+        h1 {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📰 Fake News Tracker</h1>
+
+<textarea id="newsText" placeholder="Paste news article here..."></textarea><br>
+<button onclick="checkNews()">Check News</button>
+
+<div class="box" id="resultBox">
+    Result will appear here...
+</div>
+
+<script>
+function checkNews() {
+
+    let text = document.getElementById("newsText").value.toLowerCase();
+
+    // Fake news logic keywords
+    const fakeKeywords = [
+        "100% cure",
+        "miracle",
+        "shocking truth",
+        "they don't want you to know",
+        "guaranteed money",
+        "click here fast",
+        "secret hack"
+    ];
+
+    let score = 0;
+    let found = [];
+
+    for (let i = 0; i < fakeKeywords.length; i++) {
+        if (text.includes(fakeKeywords[i])) {
+            score++;
+            found.push(fakeKeywords[i]);
+        }
+    }
+
+    let result = "";
+
+    if (score >= 2) {
+        result = "🚨 Fake News Likely";
+    } else if (score == 1) {
+        result = "⚠️ Suspicious Content";
+    } else {
+        result = "✅ Likely Real / Safe";
+    }
+
+    document.getElementById("resultBox").innerHTML =
+        "<h2>" + result + "</h2>" +
+        "<p><b>Score:</b> " + score + "</p>" +
+        "<p><b>Keywords Found:</b> " + (found.length ? found.join(", ") : "None") + "</p>";
+}
+</script>
+
+</body>
+</html>
